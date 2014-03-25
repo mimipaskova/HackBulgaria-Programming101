@@ -11,16 +11,15 @@ class Fight():
     def rand_entity(self):
         r=randint(0,100)
         if r>50:
-            return hero
-        return orc
-
-
-    def simulate_fight():
-        if rand_entity() == hero:
-            coin=0
+            rand= self.hero
         else:
-            coin=1
+            rand = self.orc
+        return rand
 
+
+    def simulate_fight(self):
+        while(self.hero.get_health() >0 and self.orc.get_health()>0):
+            self.rand.
 
 
 

@@ -1,13 +1,16 @@
 import sqlite3
 
+global c
+
 def create_connect():
-    conn = sqlite3.connect("create_bank")
+    global c
+    conn = sqlite3.connect("create_bank.db")
     c = conn.cursor()
 
 
 def list_employees(c):
-    my_list = "SELECT name, position FROM company;"
-    print(c.execute(my_list))
+    my_list = "SELECT name, position FROM company"
+    print(c.execute(my_list).fetchall())
 
 def command_split(command):
     return command.split(" ")

@@ -19,31 +19,31 @@ def insert(item, cursor):
 data = [{
     'my_id': 1,
     'name' : 'Ivan Ivanov',
-    'monthly_salary':'5000',
-    'yearly_bonus': '1000',
+    'monthly_salary':5000,
+    'yearly_bonus': '10000',
     'position' : 'Software Developer'
 },{
     'my_id': 2,
     'name' : 'Rado Rado',
-    'monthly_salary':'500',
+    'monthly_salary':500,
     'yearly_bonus': '0',
     'position' : 'Technical Support Intern'
 },{
     'my_id': 3,
     'name' : 'Ivo Ivo',
-    'monthly_salary':'10000',
+    'monthly_salary':10000,
     'yearly_bonus': '100000',
     'position' : 'CEO'
 },{
     'my_id': 4,
     'name' : 'Petar Petrov',
-    'monthly_salary':'3000',
+    'monthly_salary':3000,
     'yearly_bonus': '1000',
     'position' : 'Marketing Manager'
 },{
     'my_id': 5,
     'name' : 'Maria Georgieva',
-    'monthly_salary':'8000',
+    'monthly_salary':8000,
     'yearly_bonus': '10000',
     'position' : 'COO'
 }]

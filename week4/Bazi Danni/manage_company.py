@@ -36,6 +36,7 @@ def insert(item, cursor):
 
     query_lang = "INSERT INTO company VALUES(?, ?, ?, ?, ?)"
     cursor.execute(query_lang,(my_id, name, monthly_salary, yearly_bonus, position))
+    conn.commit()
 
 def add_employee(item,c):
     insert(item,c)
@@ -80,8 +81,8 @@ def main():
             print(command)
             #break
         elif command[0] == "add_employee":
-            item={'name' : input("name: "), 'monthly_salary' : input("monthly salary: "), 'yearly_bonus' : input("new yearly bonus: "),'position' : input("new position: ")}
-            add_employee(item, c)
+            item={'my_id' : input("my_id: "),'name' : input("name: "), 'monthly_salary' : input("monthly salary: "), 'yearly_bonus' : input("new yearly bonus: "),'position' : input("new position: ")}
+            insert(item, c)
             print(command)
             #break
 

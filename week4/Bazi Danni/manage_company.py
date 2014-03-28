@@ -2,11 +2,17 @@ import sqlite3
 #import create_company
 
 global c
+global conn
 
 def create_connect():
     global c
+    global conn
     conn = sqlite3.connect("create_bank.db")
     c = conn.cursor()
+
+def commit():
+    global conn
+    conn.commit()
 
 
 def list_employees(c):
@@ -36,7 +42,8 @@ def insert(item, cursor):
 
     query_lang = "INSERT INTO company VALUES(?, ?, ?, ?, ?)"
     cursor.execute(query_lang,(my_id, name, monthly_salary, yearly_bonus, position))
-    conn.commit()
+    commit()
+
 
 def add_employee(item,c):
     insert(item,c)

@@ -34,6 +34,7 @@ def yearly_spending(c):
     print(my_sum)
 
 def insert(item, cursor):
+    #item={dictionary}
     my_id = item["my_id"]
     name = item["name"]
     monthly_salary = item["monthly_salary"]
@@ -42,16 +43,18 @@ def insert(item, cursor):
 
     query_lang = "INSERT INTO company VALUES(?, ?, ?, ?, ?)"
     cursor.execute(query_lang,(my_id, name, monthly_salary, yearly_bonus, position))
+
     commit()
 
 
-def add_employee(item,c):
-    insert(item,c)
-    #item={dictionary}
-
 def delete_employee (id,c):
-    remove_name=c.execute("SELECT name FROM company WHERE my_id = id")
-    c.execute("DELETE FROM company WHERE my_id = id;")
+    remove_name="SELECT name FROM company WHERE my_id =?"
+    c.execute(remove_name,(id))
+    print(c.execute(remove_name,(id)).fetchall())
+    delete_employ="DELETE FROM company WHERE my_id = ?"
+    c.execute(delete_employ,(id))
+
+    commit()
     return remove_name
 
 def update_employee(id,c):
@@ -59,8 +62,9 @@ def update_employee(id,c):
     monthly_salary = input("new monthly salary: ")
     yearly_bonus = input("new yearly bonus: ")
     position = input("new position: ")
-    c.execute(("UPDATE company SET name=?, monthly_salary=?, yearly_bonus=?, position=? WHERE my_id = id"),(name, monthly_salary, yearly_bonus,\
-        position))
+    c.execute(("UPDATE company SET name=?, monthly_salary=?, yearly_bonus=?, position=? WHERE my_id = ?"),(name, monthly_salary, yearly_bonus,\
+        position,id))
+    commit()
 
 def help():
     print("list_employees - Prints out all employees, in the following format - \"name - position\" \nmonthly_spending - Prints out the total sum for monthly spending that the company is doing for salaries \nyearly_spending - Prints out the total sum for one year of operation (Again, salaries) \nadd_employee, the program starts to promt for data, to create a new employee. \ndelete_employee <employee_id>, the program should delete the given employee from the database \nupdate_employee <employee_id>, the program should prompt the user to change each of the fields for the given" )
@@ -87,19 +91,19 @@ def main():
             yearly_spending(c)
             print(command)
             #break
-        elif command[0] == "add_employee":
+        elif command[0] == "add":
             item={'my_id' : input("my_id: "),'name' : input("name: "), 'monthly_salary' : input("monthly salary: "), 'yearly_bonus' : input("new yearly bonus: "),'position' : input("new position: ")}
             insert(item, c)
             print(command)
             #break
 
-        elif command[0] == "delete_employee <employee_id>":
-            del_id=input()
+        elif command[0] == "delete":
+            del_id=input("my_id")
             delete_employee(del_id,c)
             #break
 
-        elif command[0] == "update_employee <employee_id>":
-            up_id=input()
+        elif command[0] == "update":
+            up_id=input("my_id")
             update_employee(up_id,c)
             print(command)
             #break

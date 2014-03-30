@@ -67,7 +67,7 @@ def update_employee(id,c):
     commit()
 
 def help():
-    print("list_employees - Prints out all employees, in the following format - \"name - position\" \nmonthly_spending - Prints out the total sum for monthly spending that the company is doing for salaries \nyearly_spending - Prints out the total sum for one year of operation (Again, salaries) \nadd_employee, the program starts to promt for data, to create a new employee. \ndelete_employee <employee_id>, the program should delete the given employee from the database \nupdate_employee <employee_id>, the program should prompt the user to change each of the fields for the given" )
+    print("list_employees - Prints out all employees, in the following format - \"name - position\" \nmonthly_spending - Prints out the total sum for monthly spending that the company is doing for salaries \nyearly_spending - Prints out the total sum for one year of operation (Again, salaries) \nadd_employee, the program starts to promt for data, to create a new employee. \ndelete_employee <employee_id>, the program should delete the given employee from the database \nupdate_employee <employee_id>, the program should prompt the user to change each of the fields for the given \nexit - quit" )
 
 
 def command_split(command):
@@ -84,7 +84,7 @@ def main():
             print(command)
         elif command[0] == "monthly_spending":
             monthly_spending(c)
-            print(command)
+            #print(command)
             #break
 
         elif command[0] == "yearly_spending":
@@ -94,7 +94,7 @@ def main():
         elif command[0] == "add":
             item={'my_id' : input("my_id: "),'name' : input("name: "), 'monthly_salary' : input("monthly salary: "), 'yearly_bonus' : input("new yearly bonus: "),'position' : input("new position: ")}
             insert(item, c)
-            print(command)
+            #print(command)
             #break
 
         elif command[0] == "delete":
@@ -105,12 +105,14 @@ def main():
         elif command[0] == "update":
             up_id=input("my_id")
             update_employee(up_id,c)
-            print(command)
+            #print(command)
             #break
 
         elif command[0] == "help":
             help()
             #break
+        elif command[0] == "exit":
+            break
 
 
 if __name__ == '__main__':

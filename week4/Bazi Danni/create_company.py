@@ -47,13 +47,17 @@ data = [{
     'position' : 'COO'
 }]
 
-connectoin=sqlite3.connect("create_bank.db")
-c=connectoin.cursor()
+def main():
+    connectoin=sqlite3.connect("create_bank.db")
+    c=connectoin.cursor()
 
-create_table(c)
+    create_table(c)
 
-for item in data:
-    insert(item, c)
+    for item in data:
+        insert(item, c)
 
-connectoin.commit()
-connectoin.close()
+    connectoin.commit()
+    connectoin.close()
+
+if __name__ == '__main__':
+    main()

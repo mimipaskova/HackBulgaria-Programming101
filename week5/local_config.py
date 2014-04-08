@@ -1,0 +1,2 @@
+GITHUB_USERNAME= 'mimipaskova'
+GITHUB_PASS = '1234qwe'

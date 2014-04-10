@@ -12,7 +12,7 @@ def main_menu():
             password = input("Enter your password: ")
 
             while sql_manager.register(username, password) == False:
-                print("the password must be more than 8 symbols")
+                print("the password must be more than 8 symbols and the username is not in the password")
                 password = input("Enter your password: ")
                 sql_manager.register(username,password)
 

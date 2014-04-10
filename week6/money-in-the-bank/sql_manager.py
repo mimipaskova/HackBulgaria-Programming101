@@ -25,7 +25,7 @@ def change_message(new_message, logged_user):
 
 
 def change_pass(new_pass, logged_user):
-    if not length_pass(new_pass):
+    if not length_pass(new_pass) or is_substring(logged_user.get_username(),new_pass) or not has_special_symbol(new_pass):
         return False
     else:
         update_sql = "UPDATE clients SET password = ? WHERE id = ?"
@@ -38,8 +38,30 @@ def length_pass(password):
         return False
     return True
 
+def is_substring(username, password):
+    if username in password:
+        return True
+    return False
+
+#Must have capital letters, and numbers and a special symbol
+
+#def is_capital_letters(password):
+
+
+#def has_number(password):
+
+def has_special_symbol(password):
+    special_characters = "` ~ ! @ # $ % ^ & * ( ) _ - + = { } [ ] \ | : ; \" \' < > , . ? "
+    list_of_spec_chars = special_characters.split()
+
+    for char in list_of_spec_chars:
+        if char in password:
+            return True
+    return False
+
+
 def register(username, password):
-    if not length_pass(password):
+    if not (length_pass(password) and not is_substring(username, password) and has_special_symbol(password)):
         return False
     else:
         insert_sql = "INSERT into clients (username, password) values (?, ?)"

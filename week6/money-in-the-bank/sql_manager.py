@@ -25,7 +25,7 @@ def change_message(new_message, logged_user):
 
 
 def change_pass(new_pass, logged_user):
-    if not length_pass(new_pass) or is_substring(logged_user.get_username(),new_pass) or not has_special_symbol(new_pass):
+    if not length_pass(new_pass) or is_substring(logged_user.get_username(),new_pass) or not has_special_symbol(new_pass) or not has_number(new_pass) or not has_capital_letter(new_pass):
         return False
     else:
         update_sql = "UPDATE clients SET password = ? WHERE id = ?"
@@ -43,12 +43,19 @@ def is_substring(username, password):
         return True
     return False
 
-#Must have capital letters, and numbers and a special symbol
+#Must have capital letters
 
 #def is_capital_letters(password):
 
 
-#def has_number(password):
+def has_number(password):
+    psw=list(password)
+    for char in psw:
+        if char.isdigit():
+            return True
+    return False
+
+
 
 def has_special_symbol(password):
     special_characters = "` ~ ! @ # $ % ^ & * ( ) _ - + = { } [ ] \ | : ; \" \' < > , . ? "
@@ -59,9 +66,16 @@ def has_special_symbol(password):
             return True
     return False
 
+def has_capital_letter(password):
+    psw=list(password)
+    for char in psw:
+        if char.isupper():
+            return True
+    return False
+
 
 def register(username, password):
-    if not (length_pass(password) and not is_substring(username, password) and has_special_symbol(password)):
+    if not (length_pass(password) and not is_substring(username, password) and has_special_symbol(password) and has_number(password) and has_capital_letter(password)):
         return False
     else:
         insert_sql = "INSERT into clients (username, password) values (?, ?)"

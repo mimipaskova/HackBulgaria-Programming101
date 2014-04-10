@@ -14,6 +14,7 @@ class SqlManagerTests(unittest.TestCase):
         sql_manager.register('Tester_1', '1234Tester_1')
         sql_manager.register('Tester_3', '12345678Qw')
         sql_manager.register('Tester_2', '12345678@')
+        sql_manager.register('Tester_4', 'qweqweqwe@')
 
     def tearDown(self):
         sql_manager.cursor.execute('DROP TABLE clients')
@@ -53,6 +54,21 @@ class SqlManagerTests(unittest.TestCase):
         logged_user = sql_manager.login('Tester', '123qwe@AS')
         self.assertEqual(logged_user.get_username(), 'Tester')
 
+    def test_login_number_wrong(self):
+        logged_user = sql_manager.login('Tester_4', 'qweqweqwe@')
+        self.assertFalse(logged_user)
+
+    def test_login_number_pass(self):
+        logged_user = sql_manager.login('Tester', '123qwe@AS')
+        self.assertEqual(logged_user.get_username(), 'Tester')
+
+    def test_login_capital_letter_wrong(self):
+        logged_user = sql_manager.login('Tester_4', 'qweqweqwe@')
+        self.assertFalse(logged_user)
+
+    def test_login_capital_letter_pass(self):
+        logged_user = sql_manager.login('Tester', '123qwe@AS')
+        self.assertEqual(logged_user.get_username(), 'Tester')
 
     def test_login_wrong_password(self):
         logged_user = sql_manager.login('Tester', '1235678')
@@ -78,9 +94,23 @@ class SqlManagerTests(unittest.TestCase):
 
         self.assertEqual(True, reg_success)
 
-    def test_change_password_wrong(self):
+    def test_change_password_wrong_1(self):
         logged_user = sql_manager.login('Tester', '123qwe@AS')
         new_password = "123qwe@ASTester"
+        reg_success = sql_manager.change_pass(new_password, logged_user)
+
+        self.assertEqual(False, reg_success)
+
+    def test_change_password_pass_numb(self):
+        logged_user = sql_manager.login('Tester', '123qwe@AS')
+        new_password = "123qwe@AS@"
+        reg_success = sql_manager.change_pass(new_password, logged_user)
+
+        self.assertEqual(True, reg_success)
+
+    def test_change_password_wrong_numb(self):
+        logged_user = sql_manager.login('Tester', '123qwe@AS')
+        new_password = "qwe@ASTester"
         reg_success = sql_manager.change_pass(new_password, logged_user)
 
         self.assertEqual(False, reg_success)
